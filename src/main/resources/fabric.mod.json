@@ -9,6 +9,8 @@
     "Feytox"
   ],
   "contact": {
+    "sources": "https://github.com/feytox/FeyFriends",
+    "issues": "https://github.com/feytox/FeyFriends/issues"
   },
 
   "license": "MIT",
