@@ -1,0 +1,26 @@
+{
+  "gui.feyfriends.categories_text": "Группы: %d",
+  "gui.feyfriends.category_text": "Введите группу: ",
+  "gui.feyfriends.category_field": "Группа",
+  "gui.feyfriends.comment_category": "(Используйте 'Online' для игроков онлайн)",
+  "gui.feyfriends.changefriendtext": "Введите игрока: ",
+  "gui.feyfriends.changefriendfield": "Игрок",
+  "gui.feyfriends.comment_changefriend": "(Не работает с группой 'Online')",
+  "gui.feyfriends.sound_notif_toggle": "Звуковые уведомления",
+  "gui.feyfriends.changesound_text": "Выберите звук: ",
+  "gui.feyfriends.changedelay_text": "Задержка обновления HUD: ",
+  "gui.feyfriends.changedelay_field": "Секунды",
+  "gui.feyfriends.current_delay": "(Текущая задержка: %d)",
+  "gui.feyfriends.show_players_toggle": "Отображение списка игроков",
+  "gui.feyfriends.x_text": "Смещение X: ",
+  "gui.feyfriends.y_text": "Смещение Y: ",
+  "gui.feyfriends.x_field": "Смещение X",
+  "gui.feyfriends.y_field": "Смещение Y",
+  "gui.feyfriends.current_x": "(Текущий X: %d)",
+  "gui.feyfriends.current_y": "(Текущий Y: %d)",
+
+  "key.category.feyfriends": "FeyFriends",
+  "key.feyfriends.onlinekeybind": "Вывести список онлайн игроков в чат",
+  "key.feyfriends.configguikeybind": "Открыть меню конфигурации",
+  "key.feyfriends.configplayers_keybind": "Вывести список групп и игроков в чат"
+}

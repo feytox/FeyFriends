@@ -1,0 +1,26 @@
+{
+  "gui.feyfriends.categories_text": "Groups: %d",
+  "gui.feyfriends.category_text": "Enter the group: ",
+  "gui.feyfriends.category_field": "Your group",
+  "gui.feyfriends.comment_category": "(Use 'Online' for online players)",
+  "gui.feyfriends.changefriendtext": "Enter the Player: ",
+  "gui.feyfriends.changefriendfield": "Player",
+  "gui.feyfriends.comment_changefriend": "(It doesn't work with 'Online' group)",
+  "gui.feyfriends.sound_notif_toggle": "Toggle sound notifications",
+  "gui.feyfriends.changesound_text": "Choose the sound: ",
+  "gui.feyfriends.changedelay_text": "Set HUD update delay: ",
+  "gui.feyfriends.changedelay_field": "seconds",
+  "gui.feyfriends.current_delay": "(Current delay: %d)",
+  "gui.feyfriends.show_players_toggle": "Toggle the display of the list of group's players",
+  "gui.feyfriends.x_text": "Offset X: ",
+  "gui.feyfriends.y_text": "Offset Y: ",
+  "gui.feyfriends.x_field": "Offset X",
+  "gui.feyfriends.y_field": "Offset Y",
+  "gui.feyfriends.current_x": "(Current X: %d)",
+  "gui.feyfriends.current_y": "(Current Y: %d)",
+
+  "key.category.feyfriends": "FeyFriends",
+  "key.feyfriends.onlinekeybind": "Print online players in chat",
+  "key.feyfriends.configguikeybind": "Open FeyFriends config menu",
+  "key.feyfriends.configplayers_keybind": "Print groups and players in chat"
+}

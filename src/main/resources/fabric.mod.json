@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "feyfriends",
+  "version": "${version}",
+
+  "name": "FeyFriends",
+  "description": "Mod to display the number of certain players on the screen.",
+  "authors": [
+    "Feytox"
+  ],
+  "contact": {
+  },
+
+  "license": "MIT",
+  "icon": "assets/feyfriends/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "net.feytox.feyfriends.FeyFriends"
+    ],
+    "client": [
+      "net.feytox.feyfriends.client.FeyFriendsClient"
+    ]
+  },
+  "mixins": [
+    "feyfriends.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.18.2",
+    "java": ">=17",
+    "fabric-key-binding-api-v1": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
