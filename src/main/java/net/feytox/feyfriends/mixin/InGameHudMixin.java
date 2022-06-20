@@ -1,5 +1,6 @@
 package net.feytox.feyfriends.mixin;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.feytox.feyfriends.client.FeyFriendsClient;
 import net.feytox.feyfriends.client.FeyFriendsConfig;
 import net.minecraft.client.MinecraftClient;
@@ -11,6 +12,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @Mixin(InGameHud.class)
@@ -26,28 +31,41 @@ public class InGameHudMixin {
             Map<String, List<String>> categoryStorage = FeyFriendsClient.categoryStorage;
             for (String category: newCategoryStorage.keySet()) {
                 Map<String, Object> categoryConfig = FeyFriendsConfig.categories.get(category);
-                if (!categoryStorage.isEmpty() && !Objects.equals(newCategoryStorage.get(category), categoryStorage.get(category)) &&
-                        (boolean) categoryConfig.get("sound_notif")) {
-                    MinecraftClient.getInstance().world.playSound(
-                            MinecraftClient.getInstance().player.getBlockPos(),
-                            FeyFriendsConfig.getSoundFromInt(FeyFriendsConfig.convertToInt(categoryConfig.get("sound"))),
-                            SoundCategory.BLOCKS,
-                            1f,
-                            1f,
-                            false
-                    );
-                }
+                if (categoryConfig != null) {
+                    if (!categoryStorage.isEmpty() && !Objects.equals(newCategoryStorage.get(category), categoryStorage.get(category)) &&
+                            (boolean) categoryConfig.get("sound_notif")) {
+                        MinecraftClient.getInstance().world.playSound(
+                                MinecraftClient.getInstance().player.getBlockPos(),
+                                FeyFriendsConfig.getSoundFromInt(FeyFriendsConfig.convertToInt(categoryConfig.get("sound"))),
+                                SoundCategory.BLOCKS,
+                                1f,
+                                1f,
+                                false
+                        );
+                    }
 
-                int players = Objects.equals(category, "Online") ? playerslist.size() : newCategoryStorage.get(category).size();
-                String hudPlayersList = String.join(", ", newCategoryStorage.get(category));
-                String playersCount = (boolean) categoryConfig.get("show_players_list") && players > 0 ?
-                        players + " (" + hudPlayersList + ")" :
-                        String.valueOf(players);
-                MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, category + ": " + playersCount,
-                        FeyFriendsConfig.convertToInt(categoryConfig.get("x")),
-                        FeyFriendsConfig.convertToInt(categoryConfig.get("y")), -1);
+                    int players = Objects.equals(category, "Online") ? playerslist.size() : newCategoryStorage.get(category).size();
+                    String hudPlayersList = String.join(", ", newCategoryStorage.get(category));
+                    String playersCount = (boolean) categoryConfig.get("show_players_list") && players > 0 ?
+                            players + " (" + hudPlayersList + ")" :
+                            String.valueOf(players);
+                    MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, category + ": " + playersCount,
+                            FeyFriendsConfig.convertToInt(categoryConfig.get("x")),
+                            FeyFriendsConfig.convertToInt(categoryConfig.get("y")), -1);
+                }
             }
             FeyFriendsClient.categoryStorage = newCategoryStorage;
+        }
+        if (FeyFriendsClient.isReloadNeeded) {
+            Path new_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends_backup.json");
+            Path old_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends.json");
+            try {
+                Files.copy(new_config, old_config, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
+            FeyFriendsClient.isReloadNeeded = false;
         }
     }
 }

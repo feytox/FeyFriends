@@ -27,7 +27,7 @@
   "key.feyfriends.configplayers_keybind": "Print groups and players in chat",
 
   "feyfriends.midnightconfig.showHUD": "Toggle HUD displaying",
-  "feyfriends.midnightconfig.hudUpdateDelay": "HUD update delay",
+  "feyfriends.midnightconfig.hudUpdateDelay": "HUD update delay (in ticks)",
   "feyfriends.midnightconfig.categories": "Other stuff you can configure in FeyFriends config menu",
   "feyfriends.midnightconfig.title": "FeyFriends Basic Config"
 }

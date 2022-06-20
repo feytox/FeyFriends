@@ -10,7 +10,7 @@
   "gui.feyfriends.changesound_text": "Выберите звук: ",
   "gui.feyfriends.changedelay_text": "Частота обновления HUD: ",
   "gui.feyfriends.changedelay_field": "Секунды",
-  "gui.feyfriends.current_delay": "(Текущая задержка: %d)",
+  "gui.feyfriends.current_delay": "(Текущая частота: %d секунд)",
   "gui.feyfriends.show_players_toggle": "Отображение списка игроков",
   "gui.feyfriends.x_text": "Смещение X: ",
   "gui.feyfriends.y_text": "Смещение Y: ",
@@ -28,7 +28,7 @@
 
 
   "feyfriends.midnightconfig.showHUD": "Отображение HUD",
-  "feyfriends.midnightconfig.hudUpdateDelay": "Частота обновления HUD",
+  "feyfriends.midnightconfig.hudUpdateDelay": "Частота обновления HUD (в тиках)",
   "feyfriends.midnightconfig.categories": "Другие вещи вы можете настроить в меню конфигурации FeyFriends",
   "feyfriends.midnightconfig.title": "Базовый Конфиг FeyFriends"
 }

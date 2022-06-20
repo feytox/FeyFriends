@@ -37,7 +37,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             String category_field_text = category_field.getText();
             if (!FeyFriendsConfig.categories.containsKey(category_field_text)) {
                 FeyFriendsConfig.categories.put(category_field_text, FeyFriendsConfig.genCategory(
-                        5));
+                        FeyFriendsConfig.getNewCategoryY()));
                 FeyFriendsConfig.write();
             }
         });
@@ -191,16 +191,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         });
 
         WButton loadBackup_button = new WButton(new TranslatableText("gui.feyfriends.loadBackup_button"));
-        loadBackup_button.setOnClick(() -> {
-            Path new_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends_backup.json");
-            Path old_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends.json");
-            try {
-                Files.copy(new_config, old_config, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
-        });
+        loadBackup_button.setOnClick(() -> FeyFriendsClient.isReloadNeeded = true);
 
         root.add(categories_text, 0, 0, 5, 1);
         root.add(category_text, 0, 1, 5, 1);

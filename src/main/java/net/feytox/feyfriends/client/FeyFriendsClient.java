@@ -21,6 +21,8 @@ public class FeyFriendsClient implements ClientModInitializer {
 	public static Map<String, List<String>> categoryStorage = new HashMap<>();
 	public static int ticks = 0;
 
+	public static boolean isReloadNeeded = false;
+
 	@Override
 	public void onInitializeClient() {
 		FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);

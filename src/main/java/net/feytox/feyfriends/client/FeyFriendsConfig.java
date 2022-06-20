@@ -58,17 +58,6 @@ public class FeyFriendsConfig extends MidnightConfig {
         return genCategory(players, y);
     }
 
-    public static SoundEvent getSoundFromDouble(Double sound_num) {
-        int num = Math.round(convertToFloat(sound_num));
-        return switch (num) {
-            case 2 -> SoundEvents.BLOCK_NOTE_BLOCK_BELL;
-            case 3 -> SoundEvents.BLOCK_NOTE_BLOCK_DIDGERIDOO;
-            case 4 -> SoundEvents.BLOCK_NOTE_BLOCK_CHIME;
-            case 5 -> SoundEvents.BLOCK_ANVIL_LAND;
-            default -> SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL;
-        };
-    }
-
     public static SoundEvent getSoundFromInt(int sound_num) {
         return switch (sound_num) {
             case 2 -> SoundEvents.BLOCK_NOTE_BLOCK_BELL;
@@ -94,6 +83,18 @@ public class FeyFriendsConfig extends MidnightConfig {
     public static void write() {
         write("feyfriends");
         FeyFriendsClient.ticks = FeyFriendsConfig.hudUpdateDelay;
+    }
+
+    public static int getNewCategoryY() {
+        String lastCategoryName = null;
+        for (String category_name: categories.keySet()) {
+            lastCategoryName = category_name;
+        }
+
+        Map<String, Object> default_category = new HashMap<>();
+        default_category.put("y", 5);
+
+        return (convertToInt(categories.getOrDefault(lastCategoryName, default_category).get("y"))) + 10;
     }
 }
 
