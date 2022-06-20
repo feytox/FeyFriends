@@ -19,7 +19,7 @@ public class InGameHudMixin {
     @Inject(method = "render", at = @At("RETURN"), cancellable = true)
 
     public void onRender (MatrixStack matrices, float tickDelta, CallbackInfo info) {
-        if (MinecraftClient.getInstance().getNetworkHandler() != null) {
+        if (MinecraftClient.getInstance().getNetworkHandler() != null && FeyFriendsConfig.showHUD) {
             List<String> playerslist = FeyFriendsClient.getPlayers();
             Map<String, List<String>> newCategoryStorage = FeyFriendsClient.getNewCategoryStorage(playerslist);
             // перебор нового хранилища
@@ -43,7 +43,7 @@ public class InGameHudMixin {
                 String playersCount = (boolean) categoryConfig.get("show_players_list") && players > 0 ?
                         players + " (" + hudPlayersList + ")" :
                         String.valueOf(players);
-                MinecraftClient.getInstance().textRenderer.draw(matrices, category + ": " + playersCount,
+                MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, category + ": " + playersCount,
                         FeyFriendsConfig.convertToInt(categoryConfig.get("x")),
                         FeyFriendsConfig.convertToInt(categoryConfig.get("y")), -1);
             }

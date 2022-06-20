@@ -8,7 +8,7 @@
   "gui.feyfriends.comment_changefriend": "(Не работает с группой 'Online')",
   "gui.feyfriends.sound_notif_toggle": "Звуковые уведомления",
   "gui.feyfriends.changesound_text": "Выберите звук: ",
-  "gui.feyfriends.changedelay_text": "Задержка обновления HUD: ",
+  "gui.feyfriends.changedelay_text": "Частота обновления HUD: ",
   "gui.feyfriends.changedelay_field": "Секунды",
   "gui.feyfriends.current_delay": "(Текущая задержка: %d)",
   "gui.feyfriends.show_players_toggle": "Отображение списка игроков",
@@ -18,9 +18,17 @@
   "gui.feyfriends.y_field": "Смещение Y",
   "gui.feyfriends.current_x": "(Текущий X: %d)",
   "gui.feyfriends.current_y": "(Текущий Y: %d)",
+  "gui.feyfriends.saveBackup_button": "Сохр. бэкап",
+  "gui.feyfriends.loadBackup_button": "Загр. бэкап",
 
   "key.category.feyfriends": "FeyFriends",
   "key.feyfriends.onlinekeybind": "Вывести список онлайн игроков в чат",
-  "key.feyfriends.configguikeybind": "Открыть меню конфигурации",
-  "key.feyfriends.configplayers_keybind": "Вывести список групп и игроков в чат"
+  "key.feyfriends.configguikeybind": "Открыть меню конфигурации FeyFriends",
+  "key.feyfriends.configplayers_keybind": "Вывести список групп и игроков в чат",
+
+
+  "feyfriends.midnightconfig.showHUD": "Отображение HUD",
+  "feyfriends.midnightconfig.hudUpdateDelay": "Частота обновления HUD",
+  "feyfriends.midnightconfig.categories": "Другие вещи вы можете настроить в меню конфигурации FeyFriends",
+  "feyfriends.midnightconfig.title": "Базовый Конфиг FeyFriends"
 }

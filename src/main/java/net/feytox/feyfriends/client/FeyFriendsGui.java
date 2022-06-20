@@ -3,12 +3,18 @@ package net.feytox.feyfriends.client;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +36,8 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         addcategory_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (!FeyFriendsConfig.categories.containsKey(category_field_text)) {
-                FeyFriendsConfig.categories.put(category_field_text, FeyFriendsConfig.genCategory(true, 1,
-                                                                                        false, 5, 5));
+                FeyFriendsConfig.categories.put(category_field_text, FeyFriendsConfig.genCategory(
+                        5));
                 FeyFriendsConfig.write();
             }
         });
@@ -173,6 +179,29 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         WDynamicLabel current_y = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_y",
                 getCoordOfCategoryOrDefault("y", category_field.getText(), "Error!")));
 
+        WButton saveBackup_button = new WButton(new TranslatableText("gui.feyfriends.saveBackup_button"));
+        saveBackup_button.setOnClick(() -> {
+            Path backup = FabricLoader.getInstance().getConfigDir().resolve("feyfriends_backup.json");
+            Path config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends.json");
+            try {
+                Files.copy(config, backup, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        WButton loadBackup_button = new WButton(new TranslatableText("gui.feyfriends.loadBackup_button"));
+        loadBackup_button.setOnClick(() -> {
+            Path new_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends_backup.json");
+            Path old_config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends.json");
+            try {
+                Files.copy(new_config, old_config, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
+        });
+
         root.add(categories_text, 0, 0, 5, 1);
         root.add(category_text, 0, 1, 5, 1);
         root.add(category_field, 6, 1, 5, 1);
@@ -201,6 +230,8 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         root.add(y_field, 4, 12, 5, 1);
         root.add(change_y_button, 9, 12, 1, 1);
         root.add(current_y, 11, 12, 5, 1);
+        root.add(saveBackup_button, 20, 11, 5, 1);
+        root.add(loadBackup_button, 20, 12, 5, 1);
 
         root.validate(this);
     }
@@ -234,5 +265,9 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         }
         return default_value;
+    }
+
+    private static void copyFiles(File source, File dest) throws IOException {
+        Files.move(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 }

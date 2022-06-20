@@ -33,7 +33,6 @@ public class FeyFriendsClient implements ClientModInitializer {
 				InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "key.category.feyfriends"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			// FeyFriendsConfig.categories.put(1, new FeyFriendsConfig.FriendsStuff());
 			if (!categoryStorage.isEmpty() && client.player == null) {
 				categoryStorage.clear();
 			}

@@ -12,7 +12,11 @@ import java.util.Map;
 
 public class FeyFriendsConfig extends MidnightConfig {
     @Entry
+    public static boolean showHUD = true;
+
+    @Entry
     public static int hudUpdateDelay = 200;
+
     @Entry
     public static Map<String, Map<String, Object>> categories = genCategories();
 
@@ -29,29 +33,29 @@ public class FeyFriendsConfig extends MidnightConfig {
     private static Map<String, Map<String, Object>> genCategories() {
         Map<String, Map<String, Object>> categories = new HashMap<>();
         List<String> players = new ArrayList<>();
-        Map<String, Object> category = genCategory(true, 1, false, 5, 15);
+        Map<String, Object> category = genCategory(15);
         categories.put("Friends", category);
         categories.put("Online", genOnlineStuff());
         return categories;
     }
 
-    static Map<String, Object> genCategory(List<String> players, boolean sound_notif,
-                                            int sound, boolean show_players_list, int x, int y) {
+    static Map<String, Object> genCategory(List<String> players,
+                                           int y) {
         Map<String, Object> category = new HashMap<>();
 
         category.put("players", players);
-        category.put("sound_notif", sound_notif);
-        category.put("sound", sound);
-        category.put("show_players_list", show_players_list);
-        category.put("x", x);
+        category.put("sound_notif", true);
+        category.put("sound", 1);
+        category.put("show_players_list", false);
+        category.put("x", 5);
         category.put("y", y);
 
         return category;
     }
 
-    static Map<String, Object> genCategory(boolean sound_notif, int sound, boolean show_players_list, int x, int y) {
+    static Map<String, Object> genCategory(int y) {
         List<String> players = new ArrayList<>();
-        return genCategory(players, sound_notif, sound, show_players_list, x, y);
+        return genCategory(players, y);
     }
 
     public static SoundEvent getSoundFromDouble(Double sound_num) {
