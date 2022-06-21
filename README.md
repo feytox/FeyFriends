@@ -8,4 +8,4 @@ Mod is still in EARLY BETA, so if there are any bugs or problems, comments and s
 ![javaw_HhtNCQhcKm](https://user-images.githubusercontent.com/73577753/174735219-52bfcfc1-ad3d-43d2-b0de-3e1660a1c882.png)
 
 ### Config GUI
-![javaw_gPhMKubBDO](https://user-images.githubusercontent.com/73577753/174735243-c667f01d-8b30-4a79-9784-58509cd7aed2.png)
+![image](https://user-images.githubusercontent.com/73577753/174853453-d4f91a67-8eec-42d5-9a6e-95c782254559.png)
