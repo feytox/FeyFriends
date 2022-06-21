@@ -5,7 +5,7 @@ Mod is still in EARLY BETA, so if there are any bugs or problems, comments and s
 
 ## Screenshots
 ### HUD
-![image](https://user-images.githubusercontent.com/73577753/171232005-6e8f134c-1a89-4d71-ad89-8b3b0bc7f069.png)
+![javaw_HhtNCQhcKm](https://user-images.githubusercontent.com/73577753/174735219-52bfcfc1-ad3d-43d2-b0de-3e1660a1c882.png)
 
 ### Config GUI
-![image](https://user-images.githubusercontent.com/73577753/171231622-0d548e09-a4da-4971-95ff-39508301c55b.png)
+![javaw_gPhMKubBDO](https://user-images.githubusercontent.com/73577753/174735243-c667f01d-8b30-4a79-9784-58509cd7aed2.png)
