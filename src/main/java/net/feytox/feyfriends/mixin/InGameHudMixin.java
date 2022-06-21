@@ -24,6 +24,7 @@ public class InGameHudMixin {
     @Inject(method = "render", at = @At("RETURN"), cancellable = true)
 
     public void onRender (MatrixStack matrices, float tickDelta, CallbackInfo info) {
+        int change;
         if (MinecraftClient.getInstance().getNetworkHandler() != null && FeyFriendsConfig.showHUD) {
             List<String> playerslist = FeyFriendsClient.getPlayers();
             Map<String, List<String>> newCategoryStorage = FeyFriendsClient.getNewCategoryStorage(playerslist);
@@ -31,17 +32,20 @@ public class InGameHudMixin {
             Map<String, List<String>> categoryStorage = FeyFriendsClient.categoryStorage;
             for (String category: newCategoryStorage.keySet()) {
                 Map<String, Object> categoryConfig = FeyFriendsConfig.categories.get(category);
-                if (categoryConfig != null) {
-                    if (!categoryStorage.isEmpty() && !Objects.equals(newCategoryStorage.get(category), categoryStorage.get(category)) &&
-                            (boolean) categoryConfig.get("sound_notif")) {
-                        MinecraftClient.getInstance().world.playSound(
-                                MinecraftClient.getInstance().player.getBlockPos(),
-                                FeyFriendsConfig.getSoundFromInt(FeyFriendsConfig.convertToInt(categoryConfig.get("sound"))),
-                                SoundCategory.BLOCKS,
-                                1f,
-                                1f,
-                                false
-                        );
+                if (categoryConfig != null && categoryStorage != null && categoryStorage.containsKey(category)) {
+                    if (!Objects.equals(newCategoryStorage.get(category), categoryStorage.get(category)) && !Objects.equals(categoryConfig.get("notif_type"), FeyFriendsConfig.NotificationType.OFF.getNotifName())) {
+                        change = newCategoryStorage.get(category).size() - categoryStorage.get(category).size();
+                        if (change != 0 && Objects.equals(categoryConfig.get("notif_type"),
+                                FeyFriendsConfig.NotificationType.BOTH.getNotifName())) {
+                            FeyFriendsClient.playNotification(FeyFriendsConfig.convertToInt(categoryConfig.get("sound")));
+                        }
+                        else if (change < 0 && Objects.equals(categoryConfig.get("notif_type"),
+                                FeyFriendsConfig.NotificationType.ON_LEAVE.getNotifName())) {
+                            FeyFriendsClient.playNotification(FeyFriendsConfig.convertToInt(categoryConfig.get("sound")));
+                        } else if (change > 0 && Objects.equals(categoryConfig.get("notif_type"),
+                                FeyFriendsConfig.NotificationType.ON_JOIN.getNotifName())) {
+                            FeyFriendsClient.playNotification(FeyFriendsConfig.convertToInt(categoryConfig.get("sound")));
+                        }
                     }
 
                     int players = Objects.equals(category, "Online") ? playerslist.size() : newCategoryStorage.get(category).size();
@@ -65,6 +69,7 @@ public class InGameHudMixin {
                 throw new RuntimeException(e);
             }
             FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
+            FeyFriendsConfig.checkUpdates();
             FeyFriendsClient.isReloadNeeded = false;
         }
     }

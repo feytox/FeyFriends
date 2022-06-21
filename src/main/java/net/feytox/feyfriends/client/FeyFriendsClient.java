@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ public class FeyFriendsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
+		FeyFriendsConfig.checkUpdates();
 
 		KeyBinding configguikeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.feyfriends.configguikeybind",
 				InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.category.feyfriends"));
@@ -118,6 +120,17 @@ public class FeyFriendsClient implements ClientModInitializer {
 		else {
 			return categoryStorage;
 		}
+	}
+
+	public static void playNotification(int soundNum) {
+		MinecraftClient.getInstance().world.playSound(
+				MinecraftClient.getInstance().player.getBlockPos(),
+				FeyFriendsConfig.getSoundFromInt(soundNum),
+				SoundCategory.BLOCKS,
+				1f,
+				1f,
+				false
+		);
 	}
 
 }

@@ -4,13 +4,11 @@ import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class FeyFriendsConfig extends MidnightConfig {
+
     @Entry
     public static boolean showHUD = true;
 
@@ -23,7 +21,7 @@ public class FeyFriendsConfig extends MidnightConfig {
     static Map<String, Object> genOnlineStuff() {
         Map<String, Object> onlineplayers = new HashMap<>();
 
-        onlineplayers.put("sound_notif", false);
+        onlineplayers.put("notif_type", NotificationType.OFF.getNotifName());
         onlineplayers.put("sound", 1);
         onlineplayers.put("show_players_list", false);
         onlineplayers.put("x", 5);
@@ -44,7 +42,7 @@ public class FeyFriendsConfig extends MidnightConfig {
         Map<String, Object> category = new HashMap<>();
 
         category.put("players", players);
-        category.put("sound_notif", true);
+        category.put("notif_type", NotificationType.ON_JOIN.getNotifName());
         category.put("sound", 1);
         category.put("show_players_list", false);
         category.put("x", 5);
@@ -95,6 +93,37 @@ public class FeyFriendsConfig extends MidnightConfig {
         default_category.put("y", 5);
 
         return (convertToInt(categories.getOrDefault(lastCategoryName, default_category).get("y"))) + 10;
+    }
+
+    public enum NotificationType {
+        OFF("OFF"),
+        ON_JOIN("ON_JOIN"),
+        ON_LEAVE("ON_LEAVE"),
+        BOTH("BOTH");
+
+        private final String notifName;
+        NotificationType(String notifName) {
+            this.notifName = notifName;
+        }
+        public String getNotifName() { return notifName; }
+    }
+
+    public static List<String> notificationTypes = new ArrayList<>(Arrays.asList("OFF", "ON_JOIN", "ON_LEAVE", "BOTH"));
+
+    public static void checkUpdates() {
+        // 0.2.1 -> 0.3.0
+        for (String category_name: categories.keySet()) {
+            if (!categories.get(category_name).containsKey("notif_type")) {
+                if ((boolean) categories.get(category_name).get("sound_notif")) {
+                    categories.get(category_name).put("notif_type", NotificationType.ON_JOIN.getNotifName());
+                }
+                else {
+                    categories.get(category_name).put("notif_type", NotificationType.OFF.getNotifName());
+                }
+                categories.get(category_name).remove("sound_notif");
+                write();
+            }
+        }
     }
 }
 

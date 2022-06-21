@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class FeyFriendsGui extends LightweightGuiDescription {
+    protected int lastNotifType = -1;
+
     public FeyFriendsGui() {
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
@@ -81,14 +83,31 @@ public class FeyFriendsGui extends LightweightGuiDescription {
 
         WLabel comment_changefriend = new WLabel(new TranslatableText("gui.feyfriends.comment_changefriend"));
 
-        WToggleButton sound_notif_toggle = new WToggleButton(new TranslatableText("gui.feyfriends.sound_notif_toggle"));
-        sound_notif_toggle.setOnToggle(on -> {
+        WButton notif_type_button = new WButton(new TranslatableText("gui.feyfriends.choose_notif_type"));
+        notif_type_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
-                FeyFriendsConfig.categories.get(category_field_text).put("sound_notif", on);
-                FeyFriendsConfig.write();
+                String currentNotifType = (String) FeyFriendsConfig.categories.get(category_field_text).get("notif_type");
+                if (lastNotifType == -1) {
+                    notif_type_button.setLabel(new TranslatableText("gui.feyfriends.notif_type_" + currentNotifType));
+                    lastNotifType = FeyFriendsConfig.notificationTypes.indexOf(currentNotifType);
+                }
+                else {
+                    if (lastNotifType == FeyFriendsConfig.notificationTypes.size() - 1) {
+                        lastNotifType = 0;
+                    } else {
+                        lastNotifType += 1;
+                    }
+                    String nextNotifType = FeyFriendsConfig.notificationTypes.get(lastNotifType);
+                    notif_type_button.setLabel(new TranslatableText("gui.feyfriends.notif_type_" + nextNotifType));
+                    FeyFriendsConfig.categories.get(category_field_text).put("notif_type", nextNotifType);
+                    FeyFriendsConfig.write();
+                }
             }
         });
+
+        WDynamicLabel current_notif_type = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_notif_type",
+                getValueOfCategoryOrDefault("notif_type", category_field.getText())));
 
         WLabel changesound_text = new WLabel(new TranslatableText("gui.feyfriends.changesound_text"));
 
@@ -100,14 +119,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
                 FeyFriendsConfig.categories.get(category_field_text).put("sound", changesound_slider.getValue());
                 FeyFriendsConfig.write();
-                MinecraftClient.getInstance().world.playSound(
-                        MinecraftClient.getInstance().player.getBlockPos(),
-                        FeyFriendsConfig.getSoundFromInt(changesound_slider.getValue()),
-                        SoundCategory.BLOCKS,
-                        1f,
-                        1f,
-                        false
-                );
+                FeyFriendsClient.playNotification(changesound_slider.getValue());
             }
         });
 
@@ -156,7 +168,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         });
 
         WDynamicLabel current_x = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_x",
-                getCoordOfCategoryOrDefault("x", category_field.getText(), "Error!")));
+                getValueOfCategoryOrDefault("x", category_field.getText())));
 
         WLabel y_text = new WLabel(new TranslatableText("gui.feyfriends.y_text"));
 
@@ -177,7 +189,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         });
 
         WDynamicLabel current_y = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_y",
-                getCoordOfCategoryOrDefault("y", category_field.getText(), "Error!")));
+                getValueOfCategoryOrDefault("y", category_field.getText())));
 
         WButton saveBackup_button = new WButton(new TranslatableText("gui.feyfriends.saveBackup_button"));
         saveBackup_button.setOnClick(() -> {
@@ -194,35 +206,45 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         loadBackup_button.setOnClick(() -> FeyFriendsClient.isReloadNeeded = true);
 
         root.add(categories_text, 0, 0, 5, 1);
+
         root.add(category_text, 0, 1, 5, 1);
         root.add(category_field, 6, 1, 5, 1);
         root.add(addcategory_button, 11, 1, 1, 1);
         root.add(delcategory_button, 12, 1, 1, 1);
         root.add(comment_category, 14, 1, 5, 1);
+
         root.add(changefriend_text, 0, 3, 5, 1);
         root.add(changefriend_field, 6, 3, 5, 1);
         root.add(addfriend_button, 11, 3, 1, 1);
         root.add(delfriend_button, 12, 3, 1, 1);
         root.add(comment_changefriend, 14, 3, 5, 1);
-        root.add(sound_notif_toggle, 0, 5, 5, 1);
-        root.add(changesound_text, 0, 6, 5, 1);
-        root.add(changesound_slider, 6, 6, 5, 1);
-        root.add(changesound_button, 11, 6, 1, 1);
-        root.add(changeDelay_text, 0, 8, 5, 1);
-        root.add(changeDelay_field, 8, 8, 5, 1);
-        root.add(changeDelay_button, 13, 8, 1, 1);
-        root.add(current_delay, 15, 8, 5, 1);
-        root.add(show_players_toggle, 0, 9, 5, 1);
-        root.add(x_text, 0, 11, 5, 1);
-        root.add(x_field, 4, 11, 5, 1);
-        root.add(change_x_button, 9, 11, 1, 1);
-        root.add(current_x, 11, 11, 5, 1);
-        root.add(y_text, 0, 12, 5, 1);
-        root.add(y_field, 4, 12, 5, 1);
-        root.add(change_y_button, 9, 12, 1, 1);
-        root.add(current_y, 11, 12, 5, 1);
-        root.add(saveBackup_button, 20, 11, 5, 1);
-        root.add(loadBackup_button, 20, 12, 5, 1);
+
+        root.add(notif_type_button, 0, 5, 9, 1);
+        root.add(current_notif_type, 10, 5, 5, 1);
+
+        root.add(changesound_text, 0, 7, 5, 1);
+        root.add(changesound_slider, 6, 7, 5, 1);
+        root.add(changesound_button, 11, 7, 1, 1);
+
+        root.add(changeDelay_text, 0, 9, 5, 1);
+        root.add(changeDelay_field, 8, 9, 5, 1);
+        root.add(changeDelay_button, 13, 9, 1, 1);
+        root.add(current_delay, 15, 9, 5, 1);
+
+        root.add(show_players_toggle, 0, 10, 5, 1);
+
+        root.add(x_text, 0, 12, 5, 1);
+        root.add(x_field, 4, 12, 5, 1);
+        root.add(change_x_button, 9, 12, 1, 1);
+        root.add(current_x, 11, 12, 5, 1);
+
+        root.add(y_text, 0, 13, 5, 1);
+        root.add(y_field, 4, 13, 5, 1);
+        root.add(change_y_button, 9, 13, 1, 1);
+        root.add(current_y, 11, 13, 5, 1);
+
+        root.add(saveBackup_button, 20, 12, 5, 1);
+        root.add(loadBackup_button, 20, 13, 5, 1);
 
         root.validate(this);
     }
@@ -246,16 +268,18 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         return String.join(", ", categories);
     }
 
-    protected static Object getCoordOfCategoryOrDefault(String coord_type, String category_name, Object default_value) {
+    protected static Object getValueOfCategoryOrDefault(String coord_type, String category_name) {
         if (FeyFriendsConfig.categories.containsKey(category_name)) {
             if (Objects.equals(coord_type, "x")) {
                 return FeyFriendsConfig.categories.get(category_name).get("x");
             }
             else if (Objects.equals(coord_type, "y")) {
                 return FeyFriendsConfig.categories.get(category_name).get("y");
+            } else if (Objects.equals(coord_type, "notif_type")) {
+                return new TranslatableText("gui.feyfriends.notif_type_" + FeyFriendsConfig.categories.get(category_name).get("notif_type")).getString();
             }
         }
-        return default_value;
+        return "Error!";
     }
 
     private static void copyFiles(File source, File dest) throws IOException {

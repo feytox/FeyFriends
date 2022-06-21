@@ -6,7 +6,12 @@
   "gui.feyfriends.changefriendtext": "Enter the Player: ",
   "gui.feyfriends.changefriendfield": "Player",
   "gui.feyfriends.comment_changefriend": "(It doesn't work with 'Online' group)",
-  "gui.feyfriends.sound_notif_toggle": "Toggle sound notifications",
+  "gui.feyfriends.choose_notif_type": "Choose notification type",
+  "gui.feyfriends.notif_type_OFF": "Notifications OFF",
+  "gui.feyfriends.notif_type_ON_JOIN": "Notification on join",
+  "gui.feyfriends.notif_type_ON_LEAVE": "Notification on leave",
+  "gui.feyfriends.notif_type_BOTH": "All notifications",
+  "gui.feyfriends.current_notif_type": "(Current notification type: %d)",
   "gui.feyfriends.changesound_text": "Choose the sound: ",
   "gui.feyfriends.changedelay_text": "Set HUD update delay: ",
   "gui.feyfriends.changedelay_field": "seconds",
@@ -29,5 +34,6 @@
   "feyfriends.midnightconfig.showHUD": "Toggle HUD displaying",
   "feyfriends.midnightconfig.hudUpdateDelay": "HUD update delay (in ticks)",
   "feyfriends.midnightconfig.categories": "Other stuff you can configure in FeyFriends config menu",
-  "feyfriends.midnightconfig.title": "FeyFriends Basic Config"
+  "feyfriends.midnightconfig.title": "FeyFriends Basic Config",
+  "feyfriends.midnightconfig.configVersion": ""
 }
