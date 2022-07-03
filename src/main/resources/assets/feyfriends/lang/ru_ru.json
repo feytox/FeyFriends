@@ -1,0 +1,41 @@
+{
+  "gui.feyfriends.categories_text": "Группы: %d",
+  "gui.feyfriends.category_text": "Введите группу: ",
+  "gui.feyfriends.category_field": "Группа",
+  "gui.feyfriends.comment_category": "(Используйте 'Online' для игроков онлайн)",
+  "gui.feyfriends.changefriendtext": "Введите игрока: ",
+  "gui.feyfriends.changefriendfield": "Игрок",
+  "gui.feyfriends.comment_changefriend": "(Не работает с группой 'Online')",
+  "gui.feyfriends.changesound_text": "Выберите звук: ",
+  "gui.feyfriends.changedelay_text": "Частота обновления HUD: ",
+  "gui.feyfriends.changedelay_field": "Секунды",
+  "gui.feyfriends.current_delay": "(Текущая частота: %d секунд)",
+  "gui.feyfriends.show_players_toggle": "Отображение списка игроков",
+  "gui.feyfriends.x_text": "Смещение X: ",
+  "gui.feyfriends.y_text": "Смещение Y: ",
+  "gui.feyfriends.x_field": "Смещение X",
+  "gui.feyfriends.y_field": "Смещение Y",
+  "gui.feyfriends.current_x": "(Текущий X: %d)",
+  "gui.feyfriends.current_y": "(Текущий Y: %d)",
+  "gui.feyfriends.saveBackup_button": "Сохр. бэкап",
+  "gui.feyfriends.loadBackup_button": "Загр. бэкап",
+
+  "key.category.feyfriends": "FeyFriends",
+  "key.feyfriends.onlinekeybind": "Вывести список онлайн игроков в чат",
+  "key.feyfriends.configguikeybind": "Открыть меню конфигурации FeyFriends",
+  "key.feyfriends.configplayers_keybind": "Вывести список групп и игроков в чат",
+
+
+  "feyfriends.midnightconfig.showHUD": "Отображение HUD",
+  "feyfriends.midnightconfig.hudUpdateDelay": "Частота обновления HUD (в тиках)",
+  "feyfriends.midnightconfig.categories": "Другие вещи вы можете настроить в меню конфигурации FeyFriends",
+  "feyfriends.midnightconfig.title": "Базовый Конфиг FeyFriends",
+  "feyfriends.midnightconfig.configVersion": "",
+
+  "gui.feyfriends.choose_notif_type": "Выберите тип уведомления",
+  "gui.feyfriends.notif_type_OFF": "Уведомления OFF",
+  "gui.feyfriends.notif_type_ON_JOIN": "Уведомление при заходе",
+  "gui.feyfriends.notif_type_ON_LEAVE": "Уведомление при выходе",
+  "gui.feyfriends.notif_type_BOTH": "Все уведомления",
+  "gui.feyfriends.current_notif_type": "(Текущий тип уведомлений: %d)"
+}

@@ -1,0 +1,41 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "name.uwu.feytox",
+		"id": "feyfriends",
+		"version": "${version}",
+		"metadata": {
+			"name": "FeyFriends",
+			"description": "Mod to display the number of certain players on the screen.",
+			"contributors": {
+				"Feytox": "Owner"
+			},
+			"contact": {
+				"homepage": "https://modrinth.com/mod/feyfriends",
+				"issues": "https://github.com/feytox/FeyFriends/issues",
+				"sources": "https://github.com/feytox/FeyFriends/tree/1.18.2-quilt"
+			},
+			"icon": "assets/feyfriends/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"environment": "client",
+		"entrypoints": {
+			"init": "name.uwu.feytox.feyfriends.FeyFriendsClient"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.16.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=1.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.18.2"
+			}
+		]
+	},
+	"mixin": "feyfriends.mixins.json"
+}
