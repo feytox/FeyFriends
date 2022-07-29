@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.feytox.feyfriends.client.commands.FeyFriendsCommands;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -28,6 +29,8 @@ public class FeyFriendsClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		FeyFriendsConfig.init("feyfriends", FeyFriendsConfig.class);
 		FeyFriendsConfig.checkUpdates();
+
+		FeyFriendsCommands.init();
 
 		KeyBinding configguikeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.feyfriends.configguikeybind",
 				InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.category.feyfriends"));

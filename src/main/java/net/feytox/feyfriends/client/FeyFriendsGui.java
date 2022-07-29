@@ -4,13 +4,10 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -198,7 +195,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             try {
                 Files.copy(config, backup, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         });
 
@@ -280,9 +277,5 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         }
         return "Error!";
-    }
-
-    private static void copyFiles(File source, File dest) throws IOException {
-        Files.move(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 }

@@ -6,7 +6,9 @@ import net.minecraft.sound.SoundEvents;
 
 import java.util.*;
 
-
+// TODO rewrite using ООП
+// TODO rewrite using ООП
+// TODO rewrite using ООП
 public class FeyFriendsConfig extends MidnightConfig {
 
     @Entry
@@ -30,7 +32,6 @@ public class FeyFriendsConfig extends MidnightConfig {
     }
     private static Map<String, Map<String, Object>> genCategories() {
         Map<String, Map<String, Object>> categories = new HashMap<>();
-        List<String> players = new ArrayList<>();
         Map<String, Object> category = genCategory(15);
         categories.put("Friends", category);
         categories.put("Online", genOnlineStuff());
@@ -51,7 +52,7 @@ public class FeyFriendsConfig extends MidnightConfig {
         return category;
     }
 
-    static Map<String, Object> genCategory(int y) {
+    public static Map<String, Object> genCategory(int y) {
         List<String> players = new ArrayList<>();
         return genCategory(players, y);
     }
@@ -85,27 +86,20 @@ public class FeyFriendsConfig extends MidnightConfig {
 
     public static int getNewCategoryY() {
         String lastCategoryName = null;
+        int keySetLen = categories.keySet().size();
+
         for (String category_name: categories.keySet()) {
             lastCategoryName = category_name;
+        }
+
+        if (convertToInt(categories.get(lastCategoryName).get("y")) < convertToInt(categories.get(categories.keySet().stream().toList().get(keySetLen - 2)).get("y"))) {
+            lastCategoryName = categories.keySet().stream().toList().get(keySetLen - 2);
         }
 
         Map<String, Object> default_category = new HashMap<>();
         default_category.put("y", 5);
 
         return (convertToInt(categories.getOrDefault(lastCategoryName, default_category).get("y"))) + 10;
-    }
-
-    public enum NotificationType {
-        OFF("OFF"),
-        ON_JOIN("ON_JOIN"),
-        ON_LEAVE("ON_LEAVE"),
-        BOTH("BOTH");
-
-        private final String notifName;
-        NotificationType(String notifName) {
-            this.notifName = notifName;
-        }
-        public String getNotifName() { return notifName; }
     }
 
     public static List<String> notificationTypes = new ArrayList<>(Arrays.asList("OFF", "ON_JOIN", "ON_LEAVE", "BOTH"));
