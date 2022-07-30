@@ -12,14 +12,11 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
 import org.lwjgl.glfw.GLFW;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class FeyFriendsClient implements ClientModInitializer {
-	public static final Logger LOGGER = LoggerFactory.getLogger("feyfriends");
 	public static Map<String, List<String>> categoryStorage = new HashMap<>();
 	public static int ticks = 0;
 
