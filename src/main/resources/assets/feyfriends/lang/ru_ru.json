@@ -37,5 +37,21 @@
   "gui.feyfriends.notif_type_ON_JOIN": "Уведомление при заходе",
   "gui.feyfriends.notif_type_ON_LEAVE": "Уведомление при выходе",
   "gui.feyfriends.notif_type_BOTH": "Все уведомления",
-  "gui.feyfriends.current_notif_type": "(Текущий тип уведомлений: %d)"
+  "gui.feyfriends.current_notif_type": "(Текущий тип уведомлений: %d)",
+
+  "feyfriends.addgroup.success": "Группа создана!",
+  "feyfriends.addgroup.fail": "Группа с таким названием уже существует",
+  "feyfriends.delgroup.success": "Группа удалена!",
+  "feyfriends.delgroup.fail": "Группы с таким названием не существует",
+  "feyfriends.addplayer.success": "%s добавлен в группу!",
+  "feyfriends.addplayer.already": "Игрок уже добавлен в эту группу",
+  "feyfriends.delplayer.success": "%s удалён из группы!",
+  "feyfriends.delplayer.failplayer": "Игрок отсутствует в этой группе",
+  "feyfriends.modifygroup.success": "Значение настройки изменено! Старое значение: %s",
+  "feyfriends.modifygroup.fail": "Такой группы или настройки не существует",
+  "feyfriends.loadbackup.idk": "Запрос на загрузку бэкапа отправлен!",
+  "feyfriends.savebackup.success": "Бэкап сохранён!",
+  "feyfriends.savebackup.fail": "Произошла ошибка при сохранении бэкапа",
+  "feyfriends.modifygroup.show.success": "Текущее значение настройки: %s",
+  "feyfriends.modifygroup.show.failsetting": "Неизвестная настройка"
 }

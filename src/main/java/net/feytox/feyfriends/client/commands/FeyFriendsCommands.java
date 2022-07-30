@@ -13,6 +13,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,13 +78,17 @@ public class FeyFriendsCommands {
 
                                             if (!Objects.equals(groupName, "Online") && FeyFriendsConfig.categories.containsKey(groupName)) {
                                                 List<String> friends = (List<String>) FeyFriendsConfig.categories.get(groupName).get("players");
-                                                friends.add(nick);
-                                                FeyFriendsConfig.categories.get(groupName).put("players", friends);
-                                                FeyFriendsConfig.write();
+                                                if (!friends.contains(nick)) {
+                                                    friends.add(nick);
+                                                    FeyFriendsConfig.categories.get(groupName).put("players", friends);
+                                                    FeyFriendsConfig.write();
 
-                                                sendFormattedText("feyfriends.addplayer.success", nick);
+                                                    sendFormattedText("feyfriends.addplayer.success", nick);
+                                                } else {
+                                                    sendTranslatableText("feyfriends.addplayer.already");
+                                                }
                                             } else {
-                                                sendTranslatableText("feyfriends.addplayer.fail");
+                                                sendTranslatableText("feyfriends.delgroup.fail");
                                             }
                                             return 1;
                                         }))))
@@ -103,10 +108,10 @@ public class FeyFriendsCommands {
 
                                                     sendFormattedText("feyfriends.delplayer.success", nick);
                                                 } else {
-                                                    sendTranslatableText("feyfriends.delplayer.fail");
+                                                    sendTranslatableText("feyfriends.delplayer.failplayer");
                                                 }
                                             } else {
-                                                sendTranslatableText("feyfriends.delplayer.fail");
+                                                sendTranslatableText("feyfriends.delgroup.fail");
                                             }
 
                                             return 1;
@@ -114,6 +119,25 @@ public class FeyFriendsCommands {
                 .then(literal("modifyGroup")
                         .then(argument("group name", GroupArgumentType.group())
                                 .then(argument("setting name", GroupSettingsArgumentType.groupSettings())
+                                        .executes(context -> {
+                                            String groupName = parseInput(context, 2).get(0);
+                                            String settingName = parseInput(context, 2).get(1);
+
+                                            if (FeyFriendsConfig.categories.containsKey(groupName)) {
+                                                String configName = settingToConfigName(settingName);
+                                                if (configName != null) {
+                                                    sendFormattedText("feyfriends.modifygroup.show.success",
+                                                            String.valueOf(FeyFriendsConfig.categories.get(groupName).get(configName)));
+                                                } else {
+                                                    sendTranslatableText("feyfriends.modifygroup.show.failsetting");
+                                                }
+
+                                            } else {
+                                                sendTranslatableText("feyfriends.delgroup.fail");
+                                            }
+
+                                            return 1;
+                                        })
                                         .then(argument("new value", ValueArgumentType.value())
                                                 .executes(context -> {
                                                     String groupName = parseInput(context, 3).get(0);
@@ -146,18 +170,12 @@ public class FeyFriendsCommands {
                                                     }
 
                                                     if (newValue != null && FeyFriendsConfig.categories.containsKey(groupName)) {
-                                                        String configName = null;
-
-                                                        switch (settingName) {
-                                                            case "notification_type" -> configName = "notif_type";
-                                                            case "display_players" -> configName = "show_players_list";
-                                                            case "x", "sound", "y" -> configName = settingName;
-                                                        }
+                                                        String configName = settingToConfigName(settingName);
 
                                                         String oldValue = String.valueOf(FeyFriendsConfig.categories.get(groupName).get(configName));
                                                         FeyFriendsConfig.categories.get(groupName).put(configName, newValue);
 
-                                                        if (configName.equals("sound")) {
+                                                        if (configName.equals("sound") && newValue instanceof Integer) {
                                                             FeyFriendsClient.playNotification((Integer) newValue);
                                                         }
 
@@ -208,6 +226,19 @@ public class FeyFriendsCommands {
 
     private static void sendMessage(Text message) {
         MinecraftClient.getInstance().player.sendMessage(message, false);
+    }
+
+    @Nullable
+    private static String settingToConfigName(String settingName) {
+        String configName = null;
+
+        switch (settingName) {
+            case "notification_type" -> configName = "notif_type";
+            case "display_players" -> configName = "show_players_list";
+            case "x", "sound", "y" -> configName = settingName;
+        }
+
+        return configName;
     }
 
 }
