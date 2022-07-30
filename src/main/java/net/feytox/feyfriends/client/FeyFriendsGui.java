@@ -5,8 +5,7 @@ import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,11 +26,11 @@ public class FeyFriendsGui extends LightweightGuiDescription {
 
         WDynamicLabel categories_text = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.categories_text", getCategoriesWithPlayers()));
 
-        WLabel category_text = new WLabel(new TranslatableText("gui.feyfriends.category_text"));
+        WLabel category_text = new WLabel(Text.translatable("gui.feyfriends.category_text"));
 
-        WTextField category_field = new WTextField(new TranslatableText("gui.feyfriends.category_field"));
+        WTextField category_field = new WTextField(Text.translatable("gui.feyfriends.category_field"));
 
-        WButton addcategory_button = new WButton(new LiteralText("+"));
+        WButton addcategory_button = new WButton(Text.literal("+"));
         addcategory_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (!FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -41,7 +40,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WButton delcategory_button = new WButton(new LiteralText("-"));
+        WButton delcategory_button = new WButton(Text.literal("-"));
         delcategory_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -50,13 +49,13 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WLabel comment_category = new WLabel(new TranslatableText("gui.feyfriends.comment_category"));
+        WLabel comment_category = new WLabel(Text.translatable("gui.feyfriends.comment_category"));
 
-        WLabel changefriend_text = new WLabel(new TranslatableText("gui.feyfriends.changefriendtext"));
+        WLabel changefriend_text = new WLabel(Text.translatable("gui.feyfriends.changefriendtext"));
 
-        WTextField changefriend_field = new WTextField(new TranslatableText("gui.feyfriends.changefriendfield"));
+        WTextField changefriend_field = new WTextField(Text.translatable("gui.feyfriends.changefriendfield"));
 
-        WButton addfriend_button = new WButton(new LiteralText("+"));
+        WButton addfriend_button = new WButton(Text.literal("+"));
         addfriend_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (!Objects.equals(category_field_text, "Online") && FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -67,7 +66,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WButton delfriend_button = new WButton(new LiteralText("-"));
+        WButton delfriend_button = new WButton(Text.literal("-"));
         delfriend_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (!Objects.equals(category_field_text, "Online") && FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -78,15 +77,15 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WLabel comment_changefriend = new WLabel(new TranslatableText("gui.feyfriends.comment_changefriend"));
+        WLabel comment_changefriend = new WLabel(Text.translatable("gui.feyfriends.comment_changefriend"));
 
-        WButton notif_type_button = new WButton(new TranslatableText("gui.feyfriends.choose_notif_type"));
+        WButton notif_type_button = new WButton(Text.translatable("gui.feyfriends.choose_notif_type"));
         notif_type_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
                 String currentNotifType = (String) FeyFriendsConfig.categories.get(category_field_text).get("notif_type");
                 if (lastNotifType == -1) {
-                    notif_type_button.setLabel(new TranslatableText("gui.feyfriends.notif_type_" + currentNotifType));
+                    notif_type_button.setLabel(Text.translatable("gui.feyfriends.notif_type_" + currentNotifType));
                     lastNotifType = FeyFriendsConfig.notificationTypes.indexOf(currentNotifType);
                 }
                 else {
@@ -96,7 +95,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
                         lastNotifType += 1;
                     }
                     String nextNotifType = FeyFriendsConfig.notificationTypes.get(lastNotifType);
-                    notif_type_button.setLabel(new TranslatableText("gui.feyfriends.notif_type_" + nextNotifType));
+                    notif_type_button.setLabel(Text.translatable("gui.feyfriends.notif_type_" + nextNotifType));
                     FeyFriendsConfig.categories.get(category_field_text).put("notif_type", nextNotifType);
                     FeyFriendsConfig.write();
                 }
@@ -106,11 +105,11 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         WDynamicLabel current_notif_type = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_notif_type",
                 getValueOfCategoryOrDefault("notif_type", category_field.getText())));
 
-        WLabel changesound_text = new WLabel(new TranslatableText("gui.feyfriends.changesound_text"));
+        WLabel changesound_text = new WLabel(Text.translatable("gui.feyfriends.changesound_text"));
 
         WLabeledSlider changesound_slider = new WLabeledSlider(1, 5);
 
-        WButton changesound_button = new WButton(new LiteralText("✓"));
+        WButton changesound_button = new WButton(Text.literal("✓"));
         changesound_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -120,11 +119,11 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WLabel changeDelay_text = new WLabel(new TranslatableText("gui.feyfriends.changedelay_text"));
+        WLabel changeDelay_text = new WLabel(Text.translatable("gui.feyfriends.changedelay_text"));
 
-        WTextField changeDelay_field = new WTextField(new TranslatableText("gui.feyfriends.changedelay_field"));
+        WTextField changeDelay_field = new WTextField(Text.translatable("gui.feyfriends.changedelay_field"));
 
-        WButton changeDelay_button = new WButton(new LiteralText("✓"));
+        WButton changeDelay_button = new WButton(Text.literal("✓"));
         changeDelay_button.setOnClick(() -> {
             try {
                 int newDelay = Integer.parseInt(changeDelay_field.getText());
@@ -137,7 +136,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         WDynamicLabel current_delay = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_delay",
                 FeyFriendsConfig.hudUpdateDelay / 20));
 
-        WToggleButton show_players_toggle = new WToggleButton(new TranslatableText("gui.feyfriends.show_players_toggle"));
+        WToggleButton show_players_toggle = new WToggleButton(Text.translatable("gui.feyfriends.show_players_toggle"));
         show_players_toggle.setOnToggle(on -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -146,11 +145,11 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WLabel x_text = new WLabel(new TranslatableText("gui.feyfriends.x_text"));
+        WLabel x_text = new WLabel(Text.translatable("gui.feyfriends.x_text"));
 
-        WTextField x_field = new WTextField(new TranslatableText("gui.feyfriends.x_field"));
+        WTextField x_field = new WTextField(Text.translatable("gui.feyfriends.x_field"));
 
-        WButton change_x_button = new WButton(new LiteralText("✓"));
+        WButton change_x_button = new WButton(Text.literal("✓"));
         change_x_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -167,11 +166,11 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         WDynamicLabel current_x = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_x",
                 getValueOfCategoryOrDefault("x", category_field.getText())));
 
-        WLabel y_text = new WLabel(new TranslatableText("gui.feyfriends.y_text"));
+        WLabel y_text = new WLabel(Text.translatable("gui.feyfriends.y_text"));
 
-        WTextField y_field = new WTextField(new TranslatableText("gui.feyfriends.y_field"));
+        WTextField y_field = new WTextField(Text.translatable("gui.feyfriends.y_field"));
 
-        WButton change_y_button = new WButton(new LiteralText("✓"));
+        WButton change_y_button = new WButton(Text.literal("✓"));
         change_y_button.setOnClick(() -> {
             String category_field_text = category_field.getText();
             if (FeyFriendsConfig.categories.containsKey(category_field_text)) {
@@ -188,7 +187,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
         WDynamicLabel current_y = new WDynamicLabel(() -> I18n.translate("gui.feyfriends.current_y",
                 getValueOfCategoryOrDefault("y", category_field.getText())));
 
-        WButton saveBackup_button = new WButton(new TranslatableText("gui.feyfriends.saveBackup_button"));
+        WButton saveBackup_button = new WButton(Text.translatable("gui.feyfriends.saveBackup_button"));
         saveBackup_button.setOnClick(() -> {
             Path backup = FabricLoader.getInstance().getConfigDir().resolve("feyfriends_backup.json");
             Path config = FabricLoader.getInstance().getConfigDir().resolve("feyfriends.json");
@@ -199,7 +198,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             }
         });
 
-        WButton loadBackup_button = new WButton(new TranslatableText("gui.feyfriends.loadBackup_button"));
+        WButton loadBackup_button = new WButton(Text.translatable("gui.feyfriends.loadBackup_button"));
         loadBackup_button.setOnClick(() -> FeyFriendsClient.isReloadNeeded = true);
 
         root.add(categories_text, 0, 0, 5, 1);
@@ -273,7 +272,7 @@ public class FeyFriendsGui extends LightweightGuiDescription {
             else if (Objects.equals(coord_type, "y")) {
                 return FeyFriendsConfig.categories.get(category_name).get("y");
             } else if (Objects.equals(coord_type, "notif_type")) {
-                return new TranslatableText("gui.feyfriends.notif_type_" + FeyFriendsConfig.categories.get(category_name).get("notif_type")).getString();
+                return Text.translatable("gui.feyfriends.notif_type_" + FeyFriendsConfig.categories.get(category_name).get("notif_type")).getString();
             }
         }
         return "Error!";

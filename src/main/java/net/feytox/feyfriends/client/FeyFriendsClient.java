@@ -10,7 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
@@ -52,7 +52,7 @@ public class FeyFriendsClient implements ClientModInitializer {
 						if (!Objects.equals(category_name, "Online")) {
 							Map<String, Object> category = categories.get(category_name);
 							String msg = category_name + ": " + String.join(", ", (List<String>) category.get("players"));
-							client.player.sendMessage(new LiteralText(msg), false);
+							client.player.sendMessage(Text.literal(msg), false);
 						}
 					}
 				}
@@ -63,8 +63,8 @@ public class FeyFriendsClient implements ClientModInitializer {
 					List<String> playerslist = getPlayers();
 					String players = String.join(", ", playerslist);
 					int playercount = playerslist.size();
-					client.player.sendMessage(new LiteralText("Players: " + players), false);
-					client.player.sendMessage(new LiteralText("Online = " + playercount), false);
+					client.player.sendMessage(Text.literal("Players: " + players), false);
+					client.player.sendMessage(Text.literal("Online = " + playercount), false);
 				}
 			}
 			while (configguikeybind.wasPressed()) {

@@ -2,16 +2,14 @@ package net.feytox.feyfriends.client.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.feytox.feyfriends.client.FeyFriendsClient;
 import net.feytox.feyfriends.client.FeyFriendsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -23,13 +21,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.argument;
-import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.literal;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 public class FeyFriendsCommands {
 
     public static void init() {
-        ClientCommandManager.DISPATCHER.register(literal("feyfriends")
+        ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> dispatcher.register(literal("feyfriends")
                 .then(literal("addGroup")
                         .then(argument("group name", StringArgumentType.string())
                                 .executes(context -> {
@@ -64,7 +62,7 @@ public class FeyFriendsCommands {
                                 if (!Objects.equals(category_name, "Online")) {
                                     Map<String, Object> category = categories.get(category_name);
                                     String msg = category_name + ": " + String.join(", ", (List<String>) category.get("players"));
-                                    sendMessage(new LiteralText(msg));
+                                    sendMessage(Text.literal(msg));
                                 }
                             }
                             return 1;
@@ -204,7 +202,7 @@ public class FeyFriendsCommands {
                                 sendTranslatableText("feyfriends.savebackup.fail");
                             }
                             return 1;
-                        })));
+                        })))));
     }
 
     public static <S> List<String> parseInput(CommandContext<S> context, int num) {
@@ -217,11 +215,11 @@ public class FeyFriendsCommands {
     }
 
     private static void sendFormattedText(String key, Object formatObj) {
-        sendMessage(new LiteralText(I18n.translate(key, formatObj)));
+        sendMessage(Text.literal(I18n.translate(key, formatObj)));
     }
 
     private static void sendTranslatableText(String key) {
-        sendMessage(new TranslatableText(key));
+        sendMessage(Text.translatable(key));
     }
 
     private static void sendMessage(Text message) {

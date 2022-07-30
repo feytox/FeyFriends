@@ -29,8 +29,7 @@
   "feyfriends.midnightconfig.showHUD": "Отображение HUD",
   "feyfriends.midnightconfig.hudUpdateDelay": "Частота обновления HUD (в тиках)",
   "feyfriends.midnightconfig.categories": "Другие вещи вы можете настроить в меню конфигурации FeyFriends",
-  "feyfriends.midnightconfig.title": "Базовый Конфиг FeyFriends",
-  "feyfriends.midnightconfig.configVersion": "",
+  "feyfriends.midnightconfig.title": "FeyFriends",
 
   "gui.feyfriends.choose_notif_type": "Выберите тип уведомления",
   "gui.feyfriends.notif_type_OFF": "Уведомления OFF",

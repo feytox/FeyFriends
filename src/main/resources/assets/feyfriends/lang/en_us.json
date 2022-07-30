@@ -34,8 +34,7 @@
   "feyfriends.midnightconfig.showHUD": "Toggle HUD displaying",
   "feyfriends.midnightconfig.hudUpdateDelay": "HUD update delay (in ticks)",
   "feyfriends.midnightconfig.categories": "Other stuff you can configure in FeyFriends config menu",
-  "feyfriends.midnightconfig.title": "FeyFriends Basic Config",
-  "feyfriends.midnightconfig.configVersion": "",
+  "feyfriends.midnightconfig.title": "FeyFriends",
 
   "feyfriends.addgroup.success": "Group has been created",
   "feyfriends.addgroup.fail": "Group already exists",
