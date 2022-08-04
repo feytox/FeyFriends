@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ValueArgumentType implements IFeyArgumentType {
+    int neededArgIndex;
 
-    private ValueArgumentType() {}
+    private ValueArgumentType(int neededArgIndex) {
+        this.neededArgIndex = neededArgIndex;
+    }
 
-    public static ValueArgumentType value() {
-        return new ValueArgumentType();
+    public static ValueArgumentType value(int neededArgIndex) {
+        return new ValueArgumentType(neededArgIndex);
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        String valueType = FeyFriendsCommands.parseInput(context);
+        String valueType = FeyFriendsCommands.parseInput(context, neededArgIndex);
         List<String> valueSuggestions;
 
         switch (valueType) {

@@ -9,15 +9,19 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class FriendArgumentType implements IFeyArgumentType {
-    private FriendArgumentType() {}
+    int neededArgIndex;
 
-    public static FriendArgumentType friend() {
-        return new FriendArgumentType();
+    private FriendArgumentType(int neededArgIndex) {
+        this.neededArgIndex = neededArgIndex;
+    }
+
+    public static FriendArgumentType friend(int listNameArgIndex) {
+        return new FriendArgumentType(listNameArgIndex);
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        String categoryName = FeyFriendsCommands.parseInput(context);
+        String categoryName = FeyFriendsCommands.parseInput(context, this.neededArgIndex);
         if (FeyFriendsConfig.categories.containsKey(categoryName) && !categoryName.equals("Online")) {
             List<String> players = (List<String>) FeyFriendsConfig.categories.get(categoryName).get("players");
             players.forEach(builder::suggest);

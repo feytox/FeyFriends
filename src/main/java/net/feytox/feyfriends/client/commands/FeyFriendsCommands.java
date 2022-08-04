@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,9 +28,9 @@ public class FeyFriendsCommands {
     public static void init() {
         ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> dispatcher.register(literal("feyfriends")
                 .then(literal("addGroup")
-                        .then(argument("group name", StringArgumentType.string())
+                        .then(argument("group name", StringArgumentType.greedyString())
                                 .executes(context -> {
-                                    String groupName = parseInput(context);
+                                    String groupName = parseLast(context);
                                     if (!FeyFriendsConfig.categories.containsKey(groupName)) {
                                         FeyFriendsConfig.categories.put(groupName, FeyFriendsConfig.genCategory(
                                                 FeyFriendsConfig.getNewCategoryY()));
@@ -45,7 +44,7 @@ public class FeyFriendsCommands {
                 .then(literal("delGroup")
                         .then(argument("group name", GroupArgumentType.group())
                                 .executes(context -> {
-                                    String groupName = parseInput(context);
+                                    String groupName = parseLast(context);
                                     if (FeyFriendsConfig.categories.containsKey(groupName)) {
                                         FeyFriendsConfig.categories.remove(groupName);
                                         FeyFriendsConfig.write();
@@ -71,8 +70,8 @@ public class FeyFriendsCommands {
                         .then(argument("group name", GroupArgumentType.groupWithoutOnline())
                                 .then(argument("nickname", EntityArgumentType.player())
                                         .executes(context -> {
-                                            String groupName = parseInput(context, 2).get(0);
-                                            String nick = parseInput(context, 2).get(1);
+                                            String groupName = parseInput(context, 2);
+                                            String nick = parseInput(context, 3);
 
                                             if (!Objects.equals(groupName, "Online") && FeyFriendsConfig.categories.containsKey(groupName)) {
                                                 List<String> friends = (List<String>) FeyFriendsConfig.categories.get(groupName).get("players");
@@ -92,10 +91,10 @@ public class FeyFriendsCommands {
                                         }))))
                 .then(literal("delPlayer")
                         .then(argument("group name", GroupArgumentType.groupWithoutOnline())
-                                .then(argument("nickname", FriendArgumentType.friend())
+                                .then(argument("nickname", FriendArgumentType.friend(2))
                                         .executes(context -> {
-                                            String groupName = parseInput(context, 2).get(0);
-                                            String nick = parseInput(context, 2).get(1);
+                                            String groupName = parseInput(context, 2);
+                                            String nick = parseInput(context, 3);
 
                                             if (!Objects.equals(groupName, "Online") && FeyFriendsConfig.categories.containsKey(groupName)) {
                                                 List<String> friends = (List<String>) FeyFriendsConfig.categories.get(groupName).get("players");
@@ -116,10 +115,10 @@ public class FeyFriendsCommands {
                                         }))))
                 .then(literal("modifyGroup")
                         .then(argument("group name", GroupArgumentType.group())
-                                .then(argument("setting name", GroupSettingsArgumentType.groupSettings())
+                                .then(argument("setting name", GroupSettingsArgumentType.groupSettings(2))
                                         .executes(context -> {
-                                            String groupName = parseInput(context, 2).get(0);
-                                            String settingName = parseInput(context, 2).get(1);
+                                            String groupName = parseInput(context, 2);
+                                            String settingName = parseInput(context, 3);
 
                                             if (FeyFriendsConfig.categories.containsKey(groupName)) {
                                                 String configName = settingToConfigName(settingName);
@@ -136,11 +135,11 @@ public class FeyFriendsCommands {
 
                                             return 1;
                                         })
-                                        .then(argument("new value", ValueArgumentType.value())
+                                        .then(argument("new value", ValueArgumentType.value(3))
                                                 .executes(context -> {
-                                                    String groupName = parseInput(context, 3).get(0);
-                                                    String settingName = parseInput(context, 3).get(1);
-                                                    String inputValue = parseInput(context, 3).get(2);
+                                                    String groupName = parseInput(context, 2);
+                                                    String settingName = parseInput(context, 3);
+                                                    String inputValue = parseInput(context, 4);
 
                                                     Object newValue = null;
 
@@ -205,13 +204,14 @@ public class FeyFriendsCommands {
                         })))));
     }
 
-    public static <S> List<String> parseInput(CommandContext<S> context, int num) {
+    protected static <S> String parseInput(CommandContext<S> context, int argIndex) {
         String[] inputSplitted = context.getInput().split(" ");
-        return Arrays.stream(inputSplitted).toList().subList(inputSplitted.length-num, inputSplitted.length);
+        return inputSplitted[argIndex];
     }
 
-    public static <S> String parseInput(CommandContext<S> context) {
-        return parseInput(context, 1).get(0);
+    private static <S> String parseLast(CommandContext<S> context) {
+        String[] inputSplitted = context.getInput().split(" ");
+        return inputSplitted[inputSplitted.length-1];
     }
 
     private static void sendFormattedText(String key, Object formatObj) {
