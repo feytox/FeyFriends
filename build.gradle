@@ -40,6 +40,8 @@ dependencies {
 	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
 	include "maven.modrinth:midnightlib:${project.midnightlib_version}"
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	modImplementation "com.github.feytox:OptiDevium:${project.minecraft_version}-SNAPSHOT"
 }
 
 processResources {
