@@ -1,9 +1,6 @@
-package net.feytox.feyfriends.mixin;
+package ru.feytox.feyfriends.mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.feytox.feyfriends.client.FeyFriendsClient;
-import net.feytox.feyfriends.client.FeyFriendsConfig;
-import net.feytox.feyfriends.client.NotificationType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -11,6 +8,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import ru.feytox.feyfriends.client.FeyFriendsClient;
+import ru.feytox.feyfriends.client.FeyFriendsConfig;
+import ru.feytox.feyfriends.client.NotificationType;
 
 import java.io.IOException;
 import java.nio.file.Files;

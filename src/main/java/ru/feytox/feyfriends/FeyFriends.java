@@ -1,4 +1,4 @@
-package net.feytox.feyfriends;
+package ru.feytox.feyfriends;
 
 import net.fabricmc.api.ModInitializer;
 

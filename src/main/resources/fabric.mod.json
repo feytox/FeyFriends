@@ -20,10 +20,10 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "net.feytox.feyfriends.FeyFriends"
+      "ru.feytox.feyfriends.FeyFriends"
     ],
     "client": [
-      "net.feytox.feyfriends.client.FeyFriendsClient"
+      "ru.feytox.feyfriends.client.FeyFriendsClient"
     ]
   },
   "mixins": [

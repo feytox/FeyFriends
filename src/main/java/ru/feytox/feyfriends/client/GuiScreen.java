@@ -1,4 +1,4 @@
-package net.feytox.feyfriends.client;
+package ru.feytox.feyfriends.client;
 
 import io.github.cottonmc.cotton.gui.GuiDescription;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;

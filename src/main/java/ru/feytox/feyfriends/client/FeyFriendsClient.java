@@ -1,17 +1,18 @@
-package net.feytox.feyfriends.client;
+package ru.feytox.feyfriends.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.feytox.feyfriends.client.commands.FeyFriendsCommands;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
+import ru.feytox.feyfriends.client.commands.FeyFriendsCommands;
 
 import java.util.*;
 
@@ -123,14 +124,9 @@ public class FeyFriendsClient implements ClientModInitializer {
 	}
 
 	public static void playNotification(int soundNum) {
-		MinecraftClient.getInstance().world.playSound(
-				MinecraftClient.getInstance().player.getBlockPos(),
-				FeyFriendsConfig.getSoundFromInt(soundNum),
-				SoundCategory.BLOCKS,
-				1f,
-				1f,
-				false
-		);
+		ClientPlayerEntity player = MinecraftClient.getInstance().player;
+		if (player == null) return;
+		player.playSound(FeyFriendsConfig.getSoundFromInt(soundNum), SoundCategory.BLOCKS, 1f, 1f);
 	}
 
 }

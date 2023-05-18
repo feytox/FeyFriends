@@ -1,4 +1,4 @@
-package net.feytox.feyfriends.client.commands;
+package ru.feytox.feyfriends.client.commands;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;

@@ -1,15 +1,15 @@
-package net.feytox.feyfriends.client.commands;
+package ru.feytox.feyfriends.client.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.feytox.feyfriends.client.FeyFriendsClient;
-import net.feytox.feyfriends.client.FeyFriendsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.text.Text;
+import ru.feytox.feyfriends.client.FeyFriendsClient;
+import ru.feytox.feyfriends.client.FeyFriendsConfig;
 
 import javax.annotation.Nullable;
 import java.io.IOException;

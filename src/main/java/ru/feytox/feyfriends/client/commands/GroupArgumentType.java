@@ -1,9 +1,9 @@
-package net.feytox.feyfriends.client.commands;
+package ru.feytox.feyfriends.client.commands;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.feytox.feyfriends.client.FeyFriendsConfig;
+import ru.feytox.feyfriends.client.FeyFriendsConfig;
 
 import java.util.ArrayList;
 import java.util.List;

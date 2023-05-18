@@ -1,4 +1,4 @@
-package net.feytox.feyfriends.client;
+package ru.feytox.feyfriends.client;
 
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.sound.SoundEvent;
@@ -59,11 +59,11 @@ public class FeyFriendsConfig extends MidnightConfig {
 
     public static SoundEvent getSoundFromInt(int sound_num) {
         return switch (sound_num) {
-            case 2 -> SoundEvents.BLOCK_NOTE_BLOCK_BELL;
-            case 3 -> SoundEvents.BLOCK_NOTE_BLOCK_DIDGERIDOO;
-            case 4 -> SoundEvents.BLOCK_NOTE_BLOCK_CHIME;
+            case 2 -> SoundEvents.BLOCK_NOTE_BLOCK_BELL.value();
+            case 3 -> SoundEvents.BLOCK_NOTE_BLOCK_DIDGERIDOO.value();
+            case 4 -> SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value();
             case 5 -> SoundEvents.BLOCK_ANVIL_LAND;
-            default -> SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL;
+            default -> SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value();
         };
     }
 

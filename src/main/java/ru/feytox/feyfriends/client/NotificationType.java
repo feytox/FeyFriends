@@ -1,4 +1,4 @@
-package net.feytox.feyfriends.client;
+package ru.feytox.feyfriends.client;
 
 public enum NotificationType {
     OFF("OFF"),
