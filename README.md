@@ -1,3 +1,6 @@
+# Warning
+The mod is very unstable, as it requires a complete rewrite of the code. At the moment I'm working on another mod, so when the opportunity arises, FeyFriends will be rewritten. However, I will continue to update the mod for new versions of Minecraft.
+
 # FeyFriends
 The mod shows the number of players from certain groups on the screen, default - in the left top corner. If desired, you can turn on the sound of notifications when the number of players changes, display the full list of players, etc. To customize the display of groups and notifications, use the GUI (default button is "H") ((NOT THE MODMENU BUTTON)). The mod also adds a keybind to display the full list of online players and their number in the chat (default - "J"); keybind for displaying all categories and players in them in the chat (default - "O").
 

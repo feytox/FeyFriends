@@ -2,6 +2,7 @@ package ru.feytox.feyfriends.mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,8 +25,7 @@ import java.util.Objects;
 public class InGameHudMixin {
 
     @Inject(method = "render", at = @At("RETURN"))
-
-    public void onRender (MatrixStack matrices, float tickDelta, CallbackInfo info) {
+    public void onRender (DrawContext context, float tickDelta, CallbackInfo info) {
         int change;
         if (MinecraftClient.getInstance().getNetworkHandler() != null && FeyFriendsConfig.showHUD) {
             List<String> playerslist = FeyFriendsClient.getPlayers();
@@ -55,7 +55,8 @@ public class InGameHudMixin {
                     String playersCount = (boolean) categoryConfig.get("show_players_list") && players > 0 ?
                             players + " (" + hudPlayersList + ")" :
                             String.valueOf(players);
-                    MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, category + ": " + playersCount,
+
+                    context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, category + ": " + playersCount,
                             FeyFriendsConfig.convertToInt(categoryConfig.get("x")),
                             FeyFriendsConfig.convertToInt(categoryConfig.get("y")), -1);
                 }
